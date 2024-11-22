@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <script src="/static/main.js" defer></script>
+  </head>
+  <body>
+    <h1>Welcome {{ current_user.name }}</h1>
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    <ul>
+      {% for user in users %}
+      <li>
+        <span>{{ user.name }}</span>
+        {% if user.id != current_user.id %}
+        <button
+          onclick="toggleFollow({{ user.id }})"
+          id="follow-button-{{ user.id }}"
+        >
+          {% if user.id in followed_users %} Unfollow {% else %} Follow {% endif
+          %}
+        </button>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
